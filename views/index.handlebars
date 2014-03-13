@@ -1,0 +1,212 @@
+<!doctype html>
+
+<html>
+<head>
+	<title>Clipped | Personalized Coupon Generator</title>	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="shortcut icon" href="images/favicon.ico">
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/pinterest-style.css">
+
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/index.css" rel="stylesheet">
+
+	<script src="/js/jquery-1.11.0.min.js"></script>
+	<script src="js/freewall.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header pull-left">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar" id="green1"></span>
+				<span class="icon-bar" id="green2"></span>
+				<span class="icon-bar" id="green3"></span>
+				</button>
+			</div>
+			<div class="navbar-brand">
+				<div class="logo-div">
+					<a href="/">
+						<img src="images/logo.png">
+					</a>
+				</div>
+			</div>
+			<div class="pull-right">
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a id="wallet" data-toggle="modal" href="#walletModal">
+							<span class="glyphicon glyphicon-shopping-cart"></span>
+							<span id="cartItems">0</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="navbar-collapse collapse" id="navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="/">
+						<span class="glyphicon glyphicon-home"></span>
+						&nbsp&nbspHome
+					</a></li>
+					<li><a href="#about" data-toggle="tab" class="navlink">
+						<span class="glyphicon glyphicon-qrcode"></span>
+						&nbsp&nbspAbout Clipped
+					</a></li>
+					<li><a href="#popular" data-toggle="tab" class="navlink">
+						<span class="glyphicon glyphicon-star"></span>
+						&nbsp&nbspPopular Coupons
+					</a></li>
+					<li><a href="#available" data-toggle="tab" class="navlink">
+						<span class="glyphicon glyphicon-th-list"></span>
+						&nbsp&nbspAvailable Coupons
+					</a></li>
+					<li><a href="#camera" data-toggle="tab" class="navlink">
+						<span class="glyphicon glyphicon-camera"></span>
+						&nbsp&nbspSnap
+					</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container-fluid">
+		<div class="tab-content">
+			<div class="tab-pane" id="popular">
+				<div class="contentcenter">
+					<h3>Popular Coupons</h3>
+					<p>Check out the <b>top 5</b> Clipped coupons that are currently on everybody's cart</p>
+					<hr class="short">
+				</div>
+			</div>
+			<div class="tab-pane" id="available">
+				<div class="contentcenter">
+					<h3>Available Coupons</h3>
+					<p>A compilation of everything we are offering you! Start your search below.</p>
+				</div>
+				<div class="searchfunction">
+					<form class="form-inline" role="form">
+						<div class="input-group">
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-search"></span>
+							</span>
+							<input type="text" class="form-control" placeholder="E.g. Yogurt" id="couponFilter">
+						</div>
+						<div class="sortby">
+						<h5> SORT BY</h5>
+							<div class="center-block">
+								<div class="btn-toolbar">
+									<div class="btn-group">
+										<button class="sortByBtn btn button2" value="Expiration Date">Exp. Date</button>
+									</div>
+									<div class="btn-group">
+										<button class="sortByBtn btn button2" value="Store">Store</button>
+									</div>
+									<div class="btn-group">
+										<button class="sortByBtn btn button2" value="Name">Items A-Z</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<hr class="short">
+			</div>
+			<div class="tab-pane" id="camera">
+				<div class="contentcenter">
+					<h3>Snap</h3>
+					<p>Access your mobile's camera to take a picture of your QR coupon and <strong>upload</strong> it to your cart!</p>
+					<hr class="short">
+				</div>
+				<form method="post" enctype="multipart/form-data" action="/upload" id="cameraForm">
+					<input id="chooseFileBtn" type="file" name="file" accept="image/*" capture >
+					<input type="text" name="title" placeholder="Coupon Name" >
+					<button id="uploadBtn" type="submit" class="btn btn-primary btn-sm">Upload</button>
+					<p class="errMsg" id="noFileMsg">Please scan a QR code.</p>
+					<p class="errMsg" id="noNameMsg">Please name your coupon.</p>
+					<p class="errMsg" id="invalidQRMsg">Please upload a valid QR code.</p>
+					<p class="errMsg" id="dupCouponMsg">You have already uploaded this coupon.</p>
+					<p class="errMsg" id="dupCouponNameMsg">You have already used this coupon name.</p>
+				</form>
+				<div class="progress progress-striped active">
+					<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">0%</div>
+				</div>
+				<ul class="media-list couponlist">
+				</ul>
+				<hr class="short">
+			</div>
+			<div class="tab-pane" id="about">
+				<div class="contentcenter">
+					<h3>About Clipped</h3>
+					<p>First time at Clipped &amp; want to learn more about this mobile web app? You came to the right place!</p>
+					<hr class="short">
+					<div class="orange-sub">
+						<h3>Goal</h3>
+						<img src="images/shot1.png" class="thumbnail">
+						<p>Do you ever feel that you are not getting your money's worth when grocery shopping? Or you just don't want to deal with having paper coupons stuffed in your back pockets and fishing them out at the check-out? We have just what you need. Clipped is an easy way to go paperless and save money! Browse our wide selection of coupons, select the coupons that fit your needs, and create a mega-coupon with our <strong>QR code generator</strong>! One code, many savings. </p> 
+						<hr class="short">
+						<h3>Hold up, QR Code?</h3>
+						<img src="images/shot2.png" class="thumbnail">
+						<p>We are ditching the barcode and moving with the Quick Response Code (QR Code). It holds all of the coupons that you select! </p>
+						<hr class="short">
+						<h3>Get Started</h3>
+						<p>Check out trending coupons in the <a href="#popular" data-toggle="tab" class="navlink aboutlink">Popular Coupons</a> page or go straight to digging in the <a href="#available" data-toggle="tab" class="navlink aboutlink">Available Coupons</a> page. Add the coupons you want and view a comprehensive list in your cart. When you are ready, click Generate QR Code to view your consolidated coupon! Don't forget to try out one of our favorite feature, "<a href="#camera" data-toggle="tab" class="navlink aboutlink">Snap</a>" to take a photo of your QR Code and upload your own coupon into Clipped. It's as easy as that.  </p>
+						<hr class="short">
+						<h3>Help Us, Help You</h3>
+						<img src="images/shot3.png" class="thumbnail">
+						<p>This project is far from launching - it's a lot of magic and Wizard of Oz. We are looking for feedback of all sorts. User interface, information architecture, functionality. We want to know what you want to see. Contact one our <a href="mailto:ly.victoria@yahoo.com" class="aboutlink">Clipped Project Team Member</a> and send your thoughts our way! </p>
+					</div>
+				</div>
+				<hr class="short">		
+			</div>
+			<div class="tab-pane" id="checkout">
+				<div class="contentcenter">
+					<h3>Clipped checkout</h3>
+					<p>Here is your generated coupon!</p>
+					<hr class="short">
+					<div class="orange-sub">
+						<h3>Happy savings!</h3>
+					</div>
+					<image src="images/qrcheckout.png" id="qrcode">
+					<p>Present this QR code at the register during checkout!</p>
+					<hr class="short">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Clipped Projects Modal -->
+	<div class="modal fade" id="walletModal" tabindex="-1" role="dialog" aria-labelledby="walletLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="walletLabel">
+						<span class="glyphicon glyphicon-shopping-cart"></span>
+					</h4>
+				</div>
+				<div class="modal-body">
+					<p>You have not clipped any coupons.</p>
+				</div>
+				<div class="modal-footer">
+					<a href="#checkout" data-toggle="tab">
+						<button type="button" class="btn btn-sm btn-primary" id="checkoutBtn">Generate QR Code</button>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-48446664-2', 'clipped.herokuapp.com');	
+		ga('send', 'pageview');
+	</script>
+	<script src="/js/jquery.form.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/index.js"></script>
+</body>
+</html>

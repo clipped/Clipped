@@ -1,0 +1,26 @@
+{
+  "name": "clipped",
+  "version": "0.0.1",
+  "author": "Victoria Ly, Daniel Xu, Fred Stahl",
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clipped/meat"
+  },
+  "license": "MIT",
+
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.x",
+    "express3-handlebars": "*",
+    "nan": "~0.7.0",
+    "canvas": "*",
+    "jsqrcode": "*"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }  
+}

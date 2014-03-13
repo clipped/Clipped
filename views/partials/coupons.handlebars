@@ -1,0 +1,41 @@
+{{#if freewall}}
+	<div class="freewall couponlist" id="{{id}}">
+		{{#each coupons}}
+			<div class="brick coupon {{{couponClassName name}}}">
+				<img src="{{imageURL}}" width="100%">
+				<div class="info">
+					<h5>
+						{{name}}
+						<a class="pull-right addCoupon"><span class="glyphicon glyphicon-plus"></span></a>
+					</h5>
+					<h6>{{description}}
+					{{store}}<br>
+					<em>Exp:</em> {{expiration}}
+					</h6>
+
+				</div>
+			</div>
+		{{/each}}
+	</div>
+{{else}}
+	<ul class="media-list couponlist">
+		{{#each coupons}}
+			<li class="media coupon {{{couponClassName name}}}">
+				<a class="pull-left disable">
+					<img class="media-object couponThumbnail" src="{{imageURL}}" alt="...">
+				</a>
+				<div class="media-body">
+					<h5>
+						{{name}}
+						<a class="pull-right addCoupon"><span class="glyphicon glyphicon-plus"></span></a>
+					</h5>
+					<h6>
+					{{description}}<br>
+					{{store}}<br>
+					<em>Exp:</em> {{expiration}}
+					</h6>
+				</div>
+			</li>
+		{{/each}}
+	</ul>
+{{/if}}
